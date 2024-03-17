@@ -25,10 +25,13 @@ export const InlineSnippet = ({
     </span>
   )
 }
+
 export default function DomainConfiguration({ domain }: { domain: string }) {
   const [recordType, setRecordType] = useState<'A' | 'CNAME'>('A')
 
   const { status, domainJson } = useDomainStatus({ domain })
+
+  console.log({ status, domainJson })
 
   if (!status || status === 'Valid Configuration' || !domainJson) return null
 
@@ -57,7 +60,7 @@ export default function DomainConfiguration({ domain }: { domain: string }) {
         )}
         <p className="text-lg font-semibold dark:text-white">{status}</p>
       </div>
-      {txtVerification ? (
+      {txtVerification && (
         <>
           <p className="text-sm dark:text-white">
             Please set the following TXT record on{' '}
@@ -93,11 +96,12 @@ export default function DomainConfiguration({ domain }: { domain: string }) {
             break it. Please exercise caution when setting this record.
           </p>
         </>
-      ) : status === 'Unknown Error' ? (
+      )}
+      {status === 'Unknown Error' ? (
         <p className="mb-5 text-sm dark:text-white">
           {domainJson.error.message}
         </p>
-      ) : (
+      ) : status === 'Invalid Configuration' ? (
         <>
           <div className="flex justify-start space-x-4">
             <button
@@ -125,13 +129,12 @@ export default function DomainConfiguration({ domain }: { domain: string }) {
           </div>
           <div className="my-3 text-left">
             <p className="my-5 text-sm dark:text-white">
-              To configure your{' '}
-              {recordType === 'A' ? 'apex domain' : 'subdomain'} (
+              To configure your {recordType === 'A' ? 'domain' : 'subdomain'} (
               <InlineSnippet>
                 {recordType === 'A' ? domainJson.apexName : domainJson.name}
               </InlineSnippet>
-              ), set the following {recordType} record on your DNS provider to
-              continue:
+              ), set the following <strong>{recordType}</strong> record on your
+              DNS provider to continue:
             </p>
             <div className="flex items-center justify-start space-x-10 rounded-md bg-stone-50 p-2 dark:bg-stone-800 dark:text-white">
               <div>
@@ -164,6 +167,8 @@ export default function DomainConfiguration({ domain }: { domain: string }) {
             </p>
           </div>
         </>
+      ) : (
+        'Entre em contato com o suporte'
       )}
     </div>
   )

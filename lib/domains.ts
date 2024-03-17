@@ -20,10 +20,6 @@ export const addDomainToVercel = async (domain: string) => {
       },
       body: JSON.stringify({
         name: domain,
-        // Optional: Redirect www. to root domain
-        // ...(domain.startsWith("www.") && {
-        //   redirect: domain.replace("www.", ""),
-        // }),
       }),
     },
   ).then((res) => res.json())
@@ -90,7 +86,13 @@ export const getConfigResponse = async (
         'Content-Type': 'application/json',
       },
     },
-  ).then((res) => res.json())
+  )
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('blablabla', { res })
+
+      return res
+    })
 }
 
 export const verifyDomain = async (
