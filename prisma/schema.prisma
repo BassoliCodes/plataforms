@@ -26,6 +26,8 @@ model User {
   sessions      Session[]
   sites         Site[]
   posts         Post[]
+
+  @@map("users")
 }
 
 model Account {
@@ -49,6 +51,7 @@ model Account {
 
   @@unique([provider, providerAccountId])
   @@index([userId])
+  @@map("accounts")
 }
 
 model Session {
@@ -59,6 +62,7 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@map("sessions")
 }
 
 model VerificationToken {
@@ -67,6 +71,7 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 model Post {
@@ -88,6 +93,7 @@ model Post {
   @@unique([slug, siteId])
   @@index([siteId])
   @@index([userId])
+  @@map("posts")
 }
 
 model Site {
@@ -108,14 +114,19 @@ model Site {
   posts         Post[]
 
   @@index([userId])
+  @@map("sites")
 }
 
 model Example {
-  id            Int     @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   name          String?
-  description   String? @db.Text
+  description   String?  @db.Text
   domainCount   Int?
   url           String?
-  image         String? @db.Text
-  imageBlurhash String? @db.Text
+  image         String?  @db.Text
+  imageBlurhash String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("examples")
 }
