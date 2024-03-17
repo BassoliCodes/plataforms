@@ -86,13 +86,7 @@ export const updateSite = withSiteAuth(
               customDomain: value,
             },
           })
-          await Promise.all([
-            addDomainToVercel(value),
-            // Optional: add www subdomain as well and redirect to apex domain
-            // addDomainToVercel(`www.${value}`),
-          ])
-
-          // empty value means the user wants to remove the custom domain
+          await Promise.all([addDomainToVercel(value)])
         } else if (value === '') {
           response = await prisma.site.update({
             where: {
