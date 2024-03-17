@@ -1,10 +1,9 @@
-import { Suspense } from "react";
-import Sites from "@/components/sites";
-import OverviewStats from "@/components/overview-stats";
-import Posts from "@/components/posts";
-import Link from "next/link";
-import PlaceholderCard from "@/components/placeholder-card";
-import OverviewSitesCTA from "@/components/overview-sites-cta";
+import { Suspense } from 'react'
+import Sites from '@/components/sites'
+import OverviewStats from '@/components/overview-stats'
+import Posts from '@/components/posts'
+import PlaceholderCard from '@/components/placeholder-card'
+import OverviewSitesCTA from '@/components/overview-sites-cta'
 
 export default function Overview() {
   return (
@@ -55,5 +54,5 @@ export default function Overview() {
         </Suspense>
       </div>
     </div>
-  );
+  )
 }

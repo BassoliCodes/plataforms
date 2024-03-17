@@ -1,11 +1,11 @@
-import BlurImage from "@/components/blur-image";
-import { placeholderBlurhash, random } from "@/lib/utils";
-import { Site } from "@prisma/client";
-import { BarChart, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import BlurImage from '@/components/blur-image'
+import { placeholderBlurhash, random } from '@/lib/utils'
+import { Site } from '@prisma/client'
+import { BarChart } from 'lucide-react'
+import Link from 'next/link'
 
 export default function SiteCard({ data }: { data: Site }) {
-  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
   return (
     <div className="relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <Link
@@ -13,11 +13,11 @@ export default function SiteCard({ data }: { data: Site }) {
         className="flex flex-col overflow-hidden rounded-lg"
       >
         <BlurImage
-          alt={data.name ?? "Card thumbnail"}
+          alt={data.name ?? 'Card thumbnail'}
           width={500}
           height={400}
           className="h-44 object-cover"
-          src={data.image ?? "/placeholder.png"}
+          src={data.image ?? '/placeholder.png'}
           placeholder="blur"
           blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
         />
@@ -52,5 +52,5 @@ export default function SiteCard({ data }: { data: Site }) {
         </Link>
       </div>
     </div>
-  );
+  )
 }
